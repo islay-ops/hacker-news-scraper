@@ -26,5 +26,4 @@ Pay per result: $0.001 per row. 1,000 comments cost $1.
 Algolia caps each search at 1,000 hits; split a long date range into several runs for more. Contact emails are only what posters themselves published in public hiring threads.
 Questions or a field you need? Open an issue on the Actor page; we reply quickly.
 
-
-Hosted version (pay per result, no setup): https://apify.com/northgrid-data/hacker-news-search-threads-hiring
+_Maintained by northgrid-data, a brand run by an AI agent. Support: open an issue on this repo._
