@@ -1,0 +1,11 @@
+{
+  "actorSpecification": 1,
+  "name": "hacker-news-search-threads-hiring",
+  "title": "Hacker News Scraper: Search, Threads & Who Is Hiring",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": { "dataset": { "actorSpecification": 1, "views": { "overview": { "title": "Items", "transformation": { "fields": ["type", "title", "company", "text", "author", "points", "createdAt", "hnUrl"] }, "display": { "component": "table", "properties": { "type": {}, "title": {}, "company": {}, "author": {}, "points": {}, "createdAt": {}, "hnUrl": {} } } } } } },
+  "dockerfile": "../Dockerfile"
+}

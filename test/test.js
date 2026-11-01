@@ -1,0 +1,21 @@
+'use strict';
+const assert = require('assert');
+const { search, thread, user, findMonthlyThreads, parsePost, stripHtml } = require('../lib');
+(async () => {
+    assert.strictEqual(stripHtml('a&amp;b<p>c <i>d</i>'), 'a&b\nc d');
+    const s = []; for await (const r of search({ query: 'sqlite', tags: 'story', minPoints: 100, max: 120 })) s.push(r);
+    assert(s.length === 120 && s.every((r) => r.points >= 100 && r.id), 'search ' + s.length);
+    assert(new Set(s.map((r) => r.id)).size === 120, 'dup');
+    const c = []; for await (const r of search({ query: 'rust', tags: 'comment', sortByDate: true, from: '2024-01-01', to: '2024-01-31', max: 30 })) c.push(r);
+    assert(c.length === 30 && c.every((r) => r.createdAt.startsWith('2024-01') && r.type === 'comment'));
+    const t = await thread(8863, { maxDepth: 2 });
+    assert(t.length > 20 && t[0].type === 'story' && /dropbox/i.test(t[0].title), 'thread');
+    const u = await user('pg'); assert(u && u.karma > 1000);
+    assert.strictEqual(await user('nonexistent-user-zz9981x'), null);
+    const th = await findMonthlyThreads('hiring', 2);
+    assert(th.length === 2 && /who is hiring/i.test(th[0].title), 'threads');
+    const posts = (await thread(th[1].id, { maxDepth: 1 })).filter((r) => r.depth === 1);
+    assert(posts.length > 50, 'hiring posts ' + posts.length);
+    const parsed = parsePost(posts[0]); assert(parsed.company && Array.isArray(parsed.links));
+    console.log('OK search', s.length, 'comments', c.length, 'thread', t.length, 'hiring posts', posts.length, '|', th[0].title);
+})().catch((e) => { console.error('FAIL', e); process.exit(1); });

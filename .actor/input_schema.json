@@ -1,0 +1,20 @@
+{
+  "title": "Hacker News input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "mode": { "title": "Mode", "type": "string", "description": "search = full-text search of stories/comments; thread = a whole discussion flattened; users = user profiles; monthlyThreads = posts from the monthly Who is hiring / Who wants to be hired / Freelancer threads.", "enum": ["search", "thread", "users", "monthlyThreads"], "default": "search", "editor": "select" },
+    "queries": { "title": "Search queries (mode: search)", "type": "array", "description": "Keywords. Leave empty to list everything of the chosen type in the date range.", "editor": "stringList", "prefill": ["sqlite"] },
+    "contentType": { "title": "Content type (mode: search)", "type": "string", "description": "What to search.", "enum": ["story", "comment", "ask_hn", "show_hn"], "default": "story", "editor": "select" },
+    "sortByDate": { "title": "Sort by date (mode: search)", "type": "boolean", "description": "Newest first instead of by relevance.", "default": false },
+    "fromDate": { "title": "From date", "type": "string", "description": "e.g. 2025-01-01.", "editor": "textfield" },
+    "toDate": { "title": "To date", "type": "string", "description": "e.g. 2025-12-31.", "editor": "textfield" },
+    "minPoints": { "title": "Minimum points (mode: search)", "type": "integer", "description": "Only items with at least this many points.", "minimum": 0 },
+    "items": { "title": "Items (mode: thread)", "type": "array", "description": "HN item URLs or IDs, e.g. https://news.ycombinator.com/item?id=8863.", "editor": "stringList", "prefill": [] },
+    "usernames": { "title": "Usernames (mode: users)", "type": "array", "description": "HN usernames.", "editor": "stringList", "prefill": [] },
+    "threadKind": { "title": "Monthly thread (mode: monthlyThreads)", "type": "string", "description": "hiring = Who is hiring?; wanted = Who wants to be hired?; freelance = Freelancer? Seeking freelancer?", "enum": ["hiring", "wanted", "freelance"], "default": "hiring", "editor": "select" },
+    "monthsBack": { "title": "Months (mode: monthlyThreads)", "type": "integer", "description": "How many of the latest monthly threads to read.", "default": 1, "minimum": 1, "maximum": 12 },
+    "keywordFilter": { "title": "Keyword filter (mode: monthlyThreads)", "type": "array", "description": "Keep only posts mentioning any of these words, e.g. python, remote, visa.", "editor": "stringList", "prefill": [] },
+    "maxItemsPerQuery": { "title": "Max items per query / thread", "type": "integer", "description": "Upper bound on rows per query, thread or monthly thread. Search returns at most 1000 hits per query (Algolia limit).", "default": 100, "minimum": 1, "maximum": 5000 }
+  }
+}

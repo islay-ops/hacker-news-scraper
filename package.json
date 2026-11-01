@@ -1,0 +1,10 @@
+{
+  "name": "hacker-news-search-threads-hiring",
+  "version": "1.0.0",
+  "description": "Hacker News search, threads and Who is hiring posts via the official Algolia HN Search API",
+  "main": "main.js",
+  "scripts": { "start": "node main.js", "test": "node test/test.js" },
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": { "apify": "^3.7.2" }
+}

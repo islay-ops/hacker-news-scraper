@@ -1,0 +1,7 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Hacker News output",
+  "properties": {
+    "items": { "type": "string", "title": "Items", "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview" }
+  }
+}
